@@ -89,9 +89,10 @@ typedef struct {
 
 static void* worker(void* alg){
     Task* t = (Task*)alg;
-    for (int row = t->y0; row < t->y1; ++row){
-        for (int pix = 0; pix < t->srcImage->width; ++pix){
-            for (int bit = 0; bit < t->srcImage->bpp; ++bit){
+    int row, pix, bit; 
+    for (row = t->y0; row < t->y1; ++row){
+        for (pix = 0; pix < t->srcImage->width; ++pix){
+            for (bit = 0; bit < t->srcImage->bpp; ++bit){
                 t->destImage->data[Index(pix,row,t->srcImage->width,bit,t->srcImage->bpp)] =
                     getPixelValue(t->srcImage,pix,row,bit,*(t->kernel));
             }
@@ -156,7 +157,8 @@ int main(int argc,char** argv){
 
     int rows = srcImage.height;
     int base = rows / nthreads, extra = rows % nthreads, y = 0;
-    for (int i=0;i<nthreads;++i){
+    int i;
+    for (i=0;i<nthreads;++i){
         int take = base + (i < extra ? 1 : 0);
         tasks[i].srcImage= &srcImage;
         tasks[i].destImage = &destImage;
@@ -166,7 +168,7 @@ int main(int argc,char** argv){
         y += take;
         pthread_create(&th[i], NULL, worker, &tasks[i]);
     }
-    for (int i=0;i<nthreads;++i) pthread_join(th[i], NULL);
+    for (i=0;i<nthreads;++i) pthread_join(th[i], NULL);
 
     //convolute(&srcImage,&destImage,algorithms[type]);
 
