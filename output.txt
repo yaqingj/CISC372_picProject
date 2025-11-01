@@ -1,8 +1,8 @@
-Script started on Fri Oct 31 20:31:30 2025
+Script started on Fri Oct 31 23:06:54 2025
 ]0;yaqingj@r1n06.darwin:~/CISC372_picProject[?1034h[yaqingj@r1n06 CISC372_picProject]$ THREADS=$SLURM_CPUS_PER_TASK srun ./image_pthre ads pic1.jpg edge
-
 Pthreads: 4 thread(s). Took 3 seconds
-]0;yaqingj@r1n06.darwin:~/CISC372_picProject[yaqingj@r1n06 CISC372_picProject]$ exit 
+]0;yaqingj@r1n06.darwin:~/CISC372_picProject[yaqingj@r1n06 CISC372_picProject]$ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+]0;yaqingj@r1n06.darwin:~/CISC372_picProject[yaqingj@r1n06 CISC372_picProject]$ srun ./image_openmp pic1.jpg edge
+Took 3 seconds
+]0;yaqingj@r1n06.darwin:~/CISC372_picProject[yaqingj@r1n06 CISC372_picProject]$ exit
 exit
-
-Script done on Fri Oct 31 20:31:45 2025
